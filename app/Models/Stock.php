@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Clients\ClientException; 
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -22,7 +23,7 @@ class Stock extends Model
         $className = '\\App\Clients\\' . Str::studly($this->retailer->name);
 
         if (!class_exists($className)) {
-            throw new \Exception('Unknown Client. Tracking not possible');
+            throw new ClientException('Unknown Client. Tracking not possible');
         }
 
         $objStockAvailability = (new $className)->checkAvailability($this);

@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Clients\ClientException;
 use App\Models\Stock;
 use App\Models\Retailer;
 use Tests\TestCase;
@@ -19,11 +20,8 @@ class StockTest extends TestCase
 
         Retailer::first()->update(['name' => 'Foo Exception Retailer']);
 
-        $this->expectException(\Exception::class);
+        $this->expectException(ClientException::class);
 
-
-        Stock::first()->track();
-
-       
+        Stock::first()->track();       
     }
 }
